@@ -39,58 +39,65 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     }
     //Кнопка сохранить
     @IBAction func saveButton(_ sender: UIButton) {
-        //Проверка написанного
-        let alertForAll = UIAlertController(title: "Внимание", message: "Введите все данные об ученике", preferredStyle: .alert)
-        let okAlertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alertForAll.addAction(okAlertAction)
-        let markAttention = UIAlertController(title: "Внимание", message: "Введите в поле оценки цифру от 1 до 5", preferredStyle: .alert)
-        let markAttentionAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        markAttention.addAction(markAttentionAction)
-        let doubleAlert = UIAlertController(title: "Внимание", message: "В строках Имя и Фамилия используйте только буквы русского или английского алфавита (возмонжо вы поставили пробел)", preferredStyle: .alert)
-        let doubleAlertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        doubleAlert.addAction(doubleAlertAction)
-     guard let nameToCount = nameTextField.text, let secondNameToCount = secondNameTextField.text else {return}
-        var nameCount = nameToCount.count
-        var secondNameCount = secondNameToCount.count
-
-//    guard let nameEmpty = nameTextField.text, let secondNameEmpty = secondNameTextField.text, let markEmpty = markTextFiled.text else {return}
-//        guard nameEmpty.isEmpty == false && secondNameEmpty.isEmpty == false && markEmpty.isEmpty == false else {return present(alertForAll, animated: true, completion: nil) }
-//        
-//        //Проверка написания имени
-//        while nameCount != 0 {
-//            guard let nameToCount = nameTextField.text else { return}
-//            for one in nameToCount{
-//                let ruCharacters = "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ"
-//                let engCharacters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
-//                guard ruCharacters.contains(one) || engCharacters.contains(one) else {return present(doubleAlert, animated: true, completion: nil)}
-//                nameCount -= 1
-//            }
-//        }
-//        //Проверка написания фамилии
-//        while secondNameCount != 0 {
-//            guard let secondNameToCount = secondNameTextField.text else {return}
-//            for one in secondNameToCount{
-//                let ruCharacters = "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ"
-//                let engCharacters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
-//                guard ruCharacters.contains(one) || engCharacters.contains(one) else {return present(doubleAlert, animated: true, completion: nil)}
-//                secondNameCount -= 1
-//            }
-//        }
-//        //Проверка написания оценки
-//        if let mark = UInt(markTextFiled.text!) {
-//            var markRange = 5
-//            while markRange != 0 {
-//                if mark == markRange {
-//                    performSegue(withIdentifier: "BackSave", sender: nil)
-//                    break
-//                } else {
-//                    markRange -= 1
-//                }
-//            }
-//            guard markRange != 0 else {return present(markAttention, animated: true, completion: nil)}
-//        } else {
-//            present(markAttention, animated: true, completion: nil)
-//        }
+        
+        guard let firstName = nameTextField.text else {return}
+        
+        let nameIsEmpty = UIAlertController(title: "Внимание", message: "Введите имя", preferredStyle: .alert)
+        let nameIsEmptyAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        nameIsEmpty.addAction(nameIsEmptyAction)
+        
+        guard !firstName.isEmpty else {return present(nameIsEmpty, animated: true, completion: nil)}
+        
+        for char in firstName {
+            
+            let ruCharacters = "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ"
+            let engCharacters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+            
+            let nameCheck = UIAlertController(title: "Внимание", message: "В написании имени используйте только русские или английские буквы", preferredStyle: .alert)
+            let nameCheckAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            nameCheck.addAction(nameCheckAction)
+            
+            guard ruCharacters.contains(char) || engCharacters.contains(char) else {return present(nameCheck, animated: true, completion: nil)}
+    
+        }
+        
+        guard let lastName = secondNameTextField.text else {return}
+        
+        let secondNameIsEmpty = UIAlertController(title: "Внимание", message: "Введите фамилию", preferredStyle: .alert)
+        let secondNameIsEmptyAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        secondNameIsEmpty.addAction(secondNameIsEmptyAction)
+        
+        guard !lastName.isEmpty else {return present(secondNameIsEmpty, animated: true, completion: nil)}
+        
+        for char in lastName {
+            
+            let ruCharacters = "йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ"
+            let engCharacters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+            
+            let secondNameCheck = UIAlertController(title: "Внимание", message: "В написании фамилии используйте только русские или английские буквы", preferredStyle: .alert)
+            let secondNameCheckAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            secondNameCheck.addAction(secondNameCheckAction)
+            
+            guard ruCharacters.contains(char) || engCharacters.contains(char) else {return present(secondNameCheck, animated: true, completion: nil)}
+            
+        }
+        
+        guard let markOfPupil = markTextFiled.text else {return}
+        
+        let markIsEmpty = UIAlertController(title: "Внимание", message: "Укажите оценку", preferredStyle: .alert)
+        let markIsEmptyAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        markIsEmpty.addAction(markIsEmptyAction)
+        
+        guard !markOfPupil.isEmpty else {return present(markIsEmpty, animated: true, completion: nil)}
+        
+        let numCharacter = "12345"
+        
+        let markCheck = UIAlertController(title: "Внимание", message: "Введите цифру от 1 до 5", preferredStyle: .alert)
+        let markCheckAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        markCheck.addAction(markCheckAction)
+        
+        guard numCharacter.contains(markOfPupil) && markOfPupil.count == 1 else {return present(markCheck, animated: true, completion: nil)}
+        performSegue(withIdentifier: "BackSave", sender: nil)
 }
     // Кнопка Отменить
     @IBAction func cancelButton(_ sender: UIButton) {
