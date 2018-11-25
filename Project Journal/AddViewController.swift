@@ -40,6 +40,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
     //Кнопка сохранить
     @IBAction func saveButton(_ sender: UIButton) {
         
+        //Проверка написания имени
         guard let firstName = nameTextField.text else {return}
         
         let nameIsEmpty = UIAlertController(title: "Внимание", message: "Введите имя", preferredStyle: .alert)
@@ -60,7 +61,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             guard ruCharacters.contains(char) || engCharacters.contains(char) else {return present(nameCheck, animated: true, completion: nil)}
     
         }
-        
+        //Проверка написания фамилии
         guard let lastName = secondNameTextField.text else {return}
         
         let secondNameIsEmpty = UIAlertController(title: "Внимание", message: "Введите фамилию", preferredStyle: .alert)
@@ -81,7 +82,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
             guard ruCharacters.contains(char) || engCharacters.contains(char) else {return present(secondNameCheck, animated: true, completion: nil)}
             
         }
-        
+        //Проверка написания оценки оценки
         guard let markOfPupil = markTextFiled.text else {return}
         
         let markIsEmpty = UIAlertController(title: "Внимание", message: "Укажите оценку", preferredStyle: .alert)
@@ -99,7 +100,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         guard numCharacter.contains(markOfPupil) && markOfPupil.count == 1 else {return present(markCheck, animated: true, completion: nil)}
         performSegue(withIdentifier: "BackSave", sender: nil)
 }
-    // Кнопка Отменить
+// Кнопка Отменить
     @IBAction func cancelButton(_ sender: UIButton) {
         if pupils.last?.name == "" {
             performSegue(withIdentifier: "BackCancel", sender: nil)
